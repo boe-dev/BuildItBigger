@@ -51,7 +51,9 @@ public class MainActivity extends ActionBarActivity {
 //        Intent jokeIntent = new Intent(this, JokeActivity.class);
 //        jokeIntent.putExtra("joke", myJoke.getJoke());
 //        startActivity(jokeIntent);
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Benny"));
+
+        MyJokes joke = new MyJokes();
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, joke.getRandomJoke()));
     }
 
 

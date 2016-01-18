@@ -46,15 +46,22 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        Joke myJoke = new Joke();
+
         // Toast.makeText(this, myJoke.getJoke(), Toast.LENGTH_SHORT).show();
 //        Intent jokeIntent = new Intent(this, JokeActivity.class);
 //        jokeIntent.putExtra("joke", myJoke.getJoke());
 //        startActivity(jokeIntent);
 
-        MyJokes joke = new MyJokes();
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, joke.getRandomJoke()));
+        final MyJokes joke = new MyJokes();
+        new EndpointsAsyncTask(new EndpointsAsyncTask.AsyncResponse() {
+            @Override
+            public void processFinish(String output) {
+                if (output != null && !output.toString().equals("")) {
+                    Intent jokeIntent = new Intent(getApplicationContext(), JokeActivity.class);
+                    jokeIntent.putExtra("joke", output);
+                    startActivity(jokeIntent);
+                }
+            }
+        }).execute(new Pair<Context, String>(this, joke.getRandomJoke()));
     }
-
-
 }

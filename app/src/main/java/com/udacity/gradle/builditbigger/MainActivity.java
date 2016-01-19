@@ -52,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
 //        jokeIntent.putExtra("joke", myJoke.getJoke());
 //        startActivity(jokeIntent);
 
-        final MyJokes joke = new MyJokes();
+        Joke joke = new Joke();
         new EndpointsAsyncTask(new EndpointsAsyncTask.AsyncResponse() {
             @Override
             public void processFinish(String output) {

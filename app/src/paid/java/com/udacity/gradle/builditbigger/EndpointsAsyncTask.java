@@ -27,7 +27,7 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     public AsyncResponse delegate = null;
     private ProgressBar progressBar;
 
-    public EndpointsAsyncTask(AsyncResponse delegate, ProgressBar progressBar) {
+    public EndpointsAsyncTask(Context context, AsyncResponse delegate, ProgressBar progressBar) {
         this.delegate = delegate;
         this.progressBar = progressBar;
 

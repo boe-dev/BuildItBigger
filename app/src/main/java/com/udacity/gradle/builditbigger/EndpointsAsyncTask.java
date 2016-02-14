@@ -3,6 +3,8 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Pair;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -26,9 +28,20 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     }
 
     public AsyncResponse delegate = null;
+    private ProgressBar progressBar;
 
-    public EndpointsAsyncTask(AsyncResponse delegate) {
+    public EndpointsAsyncTask(AsyncResponse delegate, ProgressBar progressBar) {
         this.delegate = delegate;
+        this.progressBar = progressBar;
+
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -54,6 +67,9 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
 
     @Override
     protected void onPostExecute(String result) {
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
         delegate.processFinish(result);
     }
 }

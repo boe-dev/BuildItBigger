@@ -8,6 +8,7 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import de.boe_dev.Joke;
@@ -20,6 +21,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment, new MainActivityFragment()).commit();
+
     }
 
 
@@ -51,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
 //        Intent jokeIntent = new Intent(this, JokeActivity.class);
 //        jokeIntent.putExtra("joke", myJoke.getJoke());
 //        startActivity(jokeIntent);
-
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         Joke joke = new Joke();
         new EndpointsAsyncTask(new EndpointsAsyncTask.AsyncResponse() {
             @Override
@@ -62,6 +65,6 @@ public class MainActivity extends ActionBarActivity {
                     startActivity(jokeIntent);
                 }
             }
-        }).execute(new Pair<Context, String>(this, joke.getRandomJoke()));
+        }, progressBar).execute(new Pair<Context, String>(this, joke.getRandomJoke()));
     }
 }

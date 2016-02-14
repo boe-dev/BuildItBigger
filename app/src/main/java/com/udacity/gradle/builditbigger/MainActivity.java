@@ -55,16 +55,6 @@ public class MainActivity extends ActionBarActivity {
 //        jokeIntent.putExtra("joke", myJoke.getJoke());
 //        startActivity(jokeIntent);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        Joke joke = new Joke();
-        new EndpointsAsyncTask(this, new EndpointsAsyncTask.AsyncResponse() {
-            @Override
-            public void processFinish(String output) {
-                if (output != null && !output.toString().equals("")) {
-                    Intent jokeIntent = new Intent(getApplicationContext(), JokeActivity.class);
-                    jokeIntent.putExtra("joke", output);
-                    startActivity(jokeIntent);
-                }
-            }
-        }, progressBar).execute(new Pair<Context, String>(this, joke.getRandomJoke()));
+        new EndpointsAsyncTask(this, progressBar).execute();
     }
 }

@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Pair;
 import android.view.View;
@@ -11,7 +12,9 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
 import java.io.IOException;
 
+import de.boe_dev.Joke;
 import de.boe_dev.joke.backend.myApi.MyApi;
+import de.boe_dev.jokeactivity.JokeActivity;
 
 /**
  * Created by benny on 14.02.16.
@@ -19,16 +22,10 @@ import de.boe_dev.joke.backend.myApi.MyApi;
 class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
-
-    public interface AsyncResponse {
-        void processFinish(String output);
-    }
-
-    public AsyncResponse delegate = null;
     private ProgressBar progressBar;
 
-    public EndpointsAsyncTask(Context context, AsyncResponse delegate, ProgressBar progressBar) {
-        this.delegate = delegate;
+    public EndpointsAsyncTask(Context context, ProgressBar progressBar) {
+        this.context = context;
         this.progressBar = progressBar;
 
     }
@@ -52,11 +49,9 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
             myApiService = builder.build();
         }
 
-        context = params[0].first;
-        String name = params[0].second;
-
+        Joke joke = new Joke();
         try {
-            return myApiService.sayHi(name).execute().getData();
+            return myApiService.sayHi(joke.getRandomJoke()).execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
@@ -67,6 +62,13 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
-        delegate.processFinish(result);
+        openJokeActivity(result);
     }
+
+    private void openJokeActivity(String result) {
+        Intent jokeIntent = new Intent(context, JokeActivity.class);
+        jokeIntent.putExtra("joke", result);
+        context.startActivity(jokeIntent);
+    }
+
 }

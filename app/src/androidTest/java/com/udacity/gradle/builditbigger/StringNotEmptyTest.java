@@ -18,8 +18,8 @@ public class StringNotEmptyTest extends AndroidTestCase {
     public void test() {
         Joke joke = new Joke();
         String result = null;
-        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(null);
-        endpointsAsyncTask.execute(new Pair<Context, String>(getContext(), joke.getRandomJoke()));
+        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(getContext(), null);
+        endpointsAsyncTask.execute();
 
         try {
             result = endpointsAsyncTask.get();

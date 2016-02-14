@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
 //        startActivity(jokeIntent);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         Joke joke = new Joke();
-        new EndpointsAsyncTask(new EndpointsAsyncTask.AsyncResponse() {
+        new EndpointsAsyncTask(this, new EndpointsAsyncTask.AsyncResponse() {
             @Override
             public void processFinish(String output) {
                 if (output != null && !output.toString().equals("")) {

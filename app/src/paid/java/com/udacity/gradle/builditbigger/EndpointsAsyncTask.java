@@ -5,19 +5,16 @@ import android.os.AsyncTask;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 
 import java.io.IOException;
 
 import de.boe_dev.joke.backend.myApi.MyApi;
 
 /**
- * Created by ben on 08.01.16.
+ * Created by benny on 14.02.16.
  */
 class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
